@@ -1,12 +1,35 @@
 version: '3.8'
+
 services:
+  app:
+    build: .
+    ports:
+      - "5001:5001"
+    env_file:
+      - .env  # This loads the variables into the container's environment
+    depends_on:
+      - mongodb
+    networks:
+      - crud_api_network
+
   mongodb:
     image: mongo:latest
-    container_name: mongodb_container
+    restart: always
+    container_name: mongodb_container_crud_api
+    environment:
+      # These must match your MONGO_URI credentials
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=pass
     ports:
       - "27018:27017"
     volumes:
       - mongodb_data:/data/db
+    networks:
+      - crud_api_network
 
 volumes:
   mongodb_data:
+
+networks:
+  crud_api_network:
+    driver: bridge
