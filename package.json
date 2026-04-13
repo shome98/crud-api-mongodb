@@ -1,7 +1,7 @@
 {
   "name": "crud-api-mongodb",
   "version": "1.0.0",
-  "description": "test mongo api deployement with docker containers and ci/cd check with docker compose.",
+  "description": "test mongo api deployement with docker containers and ci/cd check with docker compose. long before",
   "main": "src/server.ts",
   "scripts": {
     "start": "ts-node src/server.ts",
