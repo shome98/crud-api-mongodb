@@ -3,11 +3,11 @@ services:
     build: .
     ports:
       - "5001:5001"
-    # env_file:
-      # - .env  # This loads the variables into the container's environment
-    environment:
-      - MONGO_URI=mongodb://user:pass@mongodb:27017
-      - PORT=5001
+    env_file:
+      - ${ENV_PATH:-./.env}  # This loads the variables into the container's environment
+    # environment:
+    #   - MONGO_URI=mongodb://user:pass@mongodb:27017
+    #   - PORT=5001
     depends_on:
       - mongodb
     networks:
@@ -17,10 +17,12 @@ services:
     image: mongo:latest
     restart: always
     container_name: mongodb_container_crud_api
-    environment:
-      # These must match your MONGO_URI credentials
-      - MONGO_INITDB_ROOT_USERNAME=user
-      - MONGO_INITDB_ROOT_PASSWORD=pass
+    env_file:
+      - ${ENV_PATH:-./.env}
+    # environment:
+    #   # These must match your MONGO_URI credentials
+    #   - MONGO_INITDB_ROOT_USERNAME=user
+    #   - MONGO_INITDB_ROOT_PASSWORD=pass
     ports:
       - "27028:27017"
     volumes:
